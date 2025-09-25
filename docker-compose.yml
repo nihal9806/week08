@@ -47,15 +47,15 @@ services:
       context: ./backend/product_service
       dockerfile: Dockerfile
     container_name: product_api_container
-    image: week08_example01_product_service:latest
+    image: nihal722acr.azurecr.io_product_service:latest
     restart: always
     ports:
       - "8000:8000"
     environment:
       POSTGRES_HOST: product_db # Connects to the 'product_db' service within Docker network
-      AZURE_STORAGE_ACCOUNT_NAME: <your_storage_account_name> # Replace with your Azure Storage account name
-      AZURE_STORAGE_ACCOUNT_KEY: <your_storage_account_key> # Replace with your Azure Storage account key
-      AZURE_STORAGE_CONTAINER_NAME: <your_container_name> # Replace with your Azure Storage container name
+      AZURE_STORAGE_ACCOUNT_NAME: week08 # Replace with your Azure Storage account name
+      AZURE_STORAGE_ACCOUNT_KEY: +c4izgnt67qOoHYPUntBYHvZXK//feAicuVEncM4LIamjnpA894l/yrtbHerN3Ku+e5SCMUIstA++AStWSNq4Q== # Replace with your Azure Storage account key
+      AZURE_STORAGE_CONTAINER_NAME: product-images # Replace with your Azure Storage container name
       AZURE_SAS_TOKEN_EXPIRY_HOURS: 24
     depends_on:
       product_db:
@@ -69,7 +69,7 @@ services:
     build:
       context: ./backend/order_service
       dockerfile: Dockerfile
-    image: week08_example01_order_service:latest
+    image: nihal722acr.azurecr.io_order_service:latest
     container_name: order_api_container
     restart: always
     ports:
@@ -91,7 +91,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    image: week08_example01_frontend:latest
+    image: nihal722acr.azurecr.io_frontend:latest
     container_name: product_order_frontend
     restart: always
     # Frontend connects to host ports, which are mapped to container ports
