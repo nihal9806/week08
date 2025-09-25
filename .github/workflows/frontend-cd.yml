@@ -10,19 +10,19 @@ on:
       product_api_ip:
         description: 'External IP of Product Service'
         required: true
-        default: 'http://<ip_address>:8000'
+        default: 'http://20.227.101.89:8000'
       order_api_ip:
         description: 'External IP of Order Service (e.g., http://Y.Y.Y.Y:8001)'
         required: true
-        default: 'http://<ip_address>:8001'
+        default: 'http://104.209.89.220:8001'
       aks_cluster_name:
         description: 'Name of the AKS Cluster to deploy to'
         required: true
-        default: '<aks_name>'
+        default: 'aks-722'
       aks_resource_group:
         description: 'Resource Group of the AKS Cluster'
         required: true
-        default: '<<resource_group_name>'
+        default: 'sit722-w08'
 
   workflow_call:
     inputs:
@@ -56,7 +56,7 @@ jobs:
 
       # Login to Azure Container Registry (ACR)
       - name: Login to Azure Container Registry
-        run: az acr login --name ${{ secrets.AZURE_CONTAINER_REGISTRY }}
+        run: az acr login --name nihal722acr
 
       - name: Inject Backend IPs into Frontend main.js
         run: |
@@ -73,8 +73,8 @@ jobs:
       # Build and Push Docker image for Frontend
       - name: Build and Push Frontend Image
         run: |
-          docker build -t ${{ secrets.AZURE_CONTAINER_REGISTRY }}/frontend:latest ./frontend/
-          docker push ${{ secrets.AZURE_CONTAINER_REGISTRY }}/frontend:latest
+          docker build -t nihal722acr.azurecr.io/frontend:latest ./frontend/
+          docker push nihal722acr.azurecr.io/frontend:latest
 
       - name: Set Kubernetes context (get AKS credentials)
         uses: azure/aks-set-context@v3
